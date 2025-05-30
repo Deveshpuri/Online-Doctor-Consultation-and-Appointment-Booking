@@ -1,0 +1,12 @@
+[
+  {
+    "model": "hospital.doctor",
+    "fields": {
+      "user": 1,
+      "address": "123 Main St",
+      "mobile": "1234567890",
+      "department": "Cardiologist",
+      "status": true
+    }
+  }
+]

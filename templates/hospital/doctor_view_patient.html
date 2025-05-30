@@ -1,0 +1,87 @@
+{% extends 'hospital/doctor_base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="max-w-7xl mx-auto py-12 px-4">
+  <!-- Search Form -->
+  <form action="/search" method="get" class="flex justify-center mb-8">
+    <div class="flex w-full max-w-md">
+      <input type="search" name="query" id="query" placeholder="Search patients..." class="flex-1 rounded-l-md border border-gray-300 py-2 px-4 focus:outline-none focus:ring-2 focus:ring-teal-600" aria-label="Search patients">
+      <button type="submit" class="bg-teal-600 text-black rounded-r-md py-2 px-4 hover:bg-teal-700 transition">Search</button>
+    </div>
+  </form>
+
+  <!-- Patient List -->
+  {% if patients %}
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden fade-in">
+      <div class="bg-gradient-to-r from-teal-50 to-teal-100 p-4">
+        <h2 class="text-xl font-semibold text-gray-800 text-center">Your Total Patient List</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left table-auto">
+          <thead class="bg-teal-100">
+            <tr>
+              <th class="p-4 font-semibold text-gray-800">Name</th>
+              <th class="p-4 font-semibold text-gray-800">Profile Picture</th>
+              <th class="p-4 font-semibold text-gray-800">Symptoms</th>
+              <th class="p-4 font-semibold text-gray-800">Mobile</th>
+              <th class="p-4 font-semibold text-gray-800">Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in patients %}
+              <tr class="border-b hover:bg-gray-50 transition">
+                <td class="p-4 text-gray-600">{{ p.get_name|default:"N/A" }}</td>
+                <td class="p-4">
+                  {% if p.profile_pic %}
+                    <img src="{{ p.profile_pic.url }}" alt="Profile picture of {{ p.get_name }}" class="h-10 w-10 rounded-full object-cover" />
+                  {% else %}
+                    <span class="text-gray-600">No image</span>
+                  {% endif %}
+                </td>
+                <td class="p-4 text-gray-600">{{ p.symptoms|default:"N/A" }}</td>
+                <td class="p-4 text-gray-600">{{ p.mobile|default:"N/A" }}</td>
+                <td class="p-4 text-gray-600">{{ p.address|default:"N/A" }}</td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="5" class="p-4 text-center text-gray-600">No patients found.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {% else %}
+    <div class="text-center py-8 fade-in">
+      <h4 class="text-xl font-semibold text-red-600">No Patient Found!</h4>
+    </div>
+  {% endif %}
+</section>
+
+<script>
+  // Fade-in Animation
+  const elements = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  elements.forEach(element => observer.observe(element));
+</script>
+
+<style>
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+{% endblock content %}

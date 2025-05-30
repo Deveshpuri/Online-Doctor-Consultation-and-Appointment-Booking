@@ -1,0 +1,104 @@
+{% load widget_tweaks %}
+{% load static %}
+
+{% include "hospital/navbar.html" %}
+
+<head>
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa 0%, #f3f4f6 100%);
+      min-height: 100vh;
+    }
+
+    .login-card {
+      background: linear-gradient(135deg, #ffffff 60%, #e0f2fe 100%);
+      box-shadow: 0 8px 32px 0 rgba(16, 185, 129, 0.10), 0 1.5px 6px 0 rgba(0,0,0,0.04);
+      border-radius: 1.25rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: fadeIn 1.2s ease-in;
+    }
+
+    .login-card:hover {
+      transform: scale(1.025);
+      box-shadow: 0 16px 32px 0 rgba(20, 184, 166, 0.18), 0 2px 8px 0 rgba(0,0,0,0.06);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .form-input {
+      transition: border-color 0.3s, box-shadow 0.3s;
+      background: #f0fdfa;
+      border: 1.5px solid #bae6fd;
+      color: #134e4a;
+    }
+
+    .form-input:focus {
+      border-color: #14b8a6;
+      box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.12);
+      background: #fff;
+    }
+
+    .login-btn {
+      background: linear-gradient(90deg, #14b8a6 0%, #0ea5e9 100%);
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      box-shadow: 0 2px 8px 0 rgba(20, 184, 166, 0.10);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .login-btn:hover {
+      background: linear-gradient(90deg, #0ea5e9 0%, #14b8a6 100%);
+      transform: scale(1.04);
+      box-shadow: 0 4px 16px 0 rgba(14, 165, 233, 0.15);
+    }
+
+    .login-card h2 {
+      color: #134e4a;
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 640px) {
+      .login-card {
+        padding: 1.5rem;
+      }
+      .login-card h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<section class="min-h-screen flex items-center justify-center py-12 px-4">
+  <div class="login-card max-w-md w-full p-8">
+    <h2 class="text-3xl font-extrabold text-center mb-7 tracking-tight">Patient Login</h2>
+    <form method="post" class="space-y-7">
+      {% csrf_token %}
+      <div>
+        <label for="username" class="block text-sm font-semibold text-teal-700 mb-1">Username</label>
+        {% render_field form.username class="form-input mt-1 block w-full rounded-lg py-2 px-3 focus:ring-0 focus:border-teal-600" placeholder="Username" aria-required="true" %}
+      </div>
+      <div>
+        <label for="password" class="block text-sm font-semibold text-teal-700 mb-1">Password</label>
+        {% render_field form.password class="form-input mt-1 block w-full rounded-lg py-2 px-3 focus:ring-0 focus:border-teal-600" placeholder="Password" aria-required="true" %}
+      </div>
+      <div>
+        <button type="submit" class="login-btn w-full py-3 rounded-full font-semibold text-lg">Login</button>
+      </div>
+      <p class="text-center text-sm text-gray-600">
+        Don't have an account?
+        <a href="/patientsignup" class="text-teal-600 font-semibold hover:underline" aria-label="Sign up for a patient account">Sign up here</a>
+      </p>
+    </form>
+  </div>
+</section>
+
+{% include "hospital/footer.html" %}

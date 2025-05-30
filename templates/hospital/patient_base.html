@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Management | Patient Dashboard</title>
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background:rgb(243, 245, 246);
+  }
+
+  .sidebar {
+    transition: transform 0.3s ease-in-out;
+    background: #14b8a6; /* Tailwind teal-600 */
+  }
+
+  .sidebar-hidden {
+    transform: translateX(-100%);
+  }
+
+  .hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color:rgb(224, 171, 171);
+    margin: 5px 0;
+    transition: all 0.3s;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 50;
+      transform: translateX(-100%);
+    }
+
+    .sidebar-active {
+      transform: translateX(0);
+    }
+  }
+</style>
+
+</head>
+<body>
+ <!-- Navbar -->
+<nav class="py-4 bg-blue-600 fixed w-full top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+    <div class="text-2xl font-bold text-white">Hospital Management</div>
+    <div class="hamburger md:hidden">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="hidden md:flex items-center space-x-6">
+      <a href="/patient-dashboard" class="text-white font-semibold hover:text-blue-200 transition">Dashboard</a>
+      <a href="/patient-appointment" class="text-white font-semibold hover:text-blue-200 transition">Appointments</a>
+      <a href="/patient-view-doctor" class="text-white font-semibold hover:text-blue-200 transition">Doctors</a>
+      <a href="/patient-discharge" class="text-white font-semibold hover:text-blue-200 transition">Discharge</a>
+      <a href="/logout" class="text-white font-semibold hover:text-blue-200 transition">Logout</a>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Sidebar for Mobile -->
+  <div class="sidebar fixed top-0 left-0 h-full w-64 text-#14b8a6 p-6 md:hidden sidebar-hidden">
+    <div class="text-xl font-bold mb-6">Patient: {{request.user.first_name}}</div>
+    <ul class="space-y-4">
+      <li><a href="/patient-dashboard" class="text-#14b8a6 hover:text-blue-200 transition" aria-label="Patient Dashboard">Dashboard</a></li>
+      <li><a href="/patient-appointment" class="text-#14b8a6 hover:text-blue-200 transition" aria-label="View Appointments">Appointments</a></li>
+      <li><a href="/patient-view-doctor" class="text-#14b8a6 hover:text-blue-200 transition" aria-label="View Doctors">Doctors</a></li>
+      <li><a href="/patient-discharge" class="text-#14b8a6 hover:text-blue-200 transition" aria-label="View Discharge Details">Discharge</a></li>
+      <li><a href="/logout" class="text-#14b8a6 hover:text-blue-200 transition" aria-label="Logout">Logout</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 py-16 md: mt-16">
+    {% block content %}
+    {% endblock content %}
+  </div>
+
+  <!-- Footer -->
+ 
+<!-- Footer -->
+<footer class="bg-blue-600 text-white py-8">
+  <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+      <p>Email: <a href="mailto:support@hospitalmanagement.com" class="hover:underline">support@hospitalmanagement.com</a></p>
+      <p>Phone: <a href="tel:+1234567890" class="hover:underline">+123 456 7890</a></p>
+    </div>
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+      <p><a href="/" class="hover:underline">Home</a></p>
+      <p><a href="/aboutus" class="hover:underline">About Us</a></p>
+      <p><a href="/contactus" class="hover:underline">Contact Us</a></p>
+    </div>
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+      <p><a href="#" class="hover:underline">Twitter</a></p>
+      <p><a href="#" class="hover:underline">Facebook</a></p>
+      <p><a href="#" class="hover:underline">Instagram</a></p>
+    </div>
+  </div>
+  <p class="text-center mt-6 text-sm">© 2025 Hospital Management. All rights reserved.</p>
+</footer>
+
+
+  <script>
+    // Hamburger Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const sidebar = document.querySelector('.sidebar');
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('sidebar-hidden');
+      sidebar.classList.toggle('sidebar-active');
+    });
+  </script>
+</body>
+</html>

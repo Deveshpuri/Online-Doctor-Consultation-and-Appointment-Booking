@@ -1,0 +1,37 @@
+{% extends 'hospital/doctor_base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="max-w-7xl mx-auto py-12 px-4">
+  {% include 'hospital/doctor_dashboard_cards.html' %}
+
+  <!-- Recent Appointments Section -->
+  
+</section>
+
+<script>
+  // Fade-in Animation
+  const elements = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  elements.forEach(element => observer.observe(element));
+</script>
+
+<style>
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+{% endblock content %}

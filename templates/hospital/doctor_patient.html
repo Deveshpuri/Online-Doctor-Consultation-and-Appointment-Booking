@@ -1,0 +1,66 @@
+{% extends 'hospital/doctor_base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="max-w-7xl mx-auto py-12 px-4">
+  <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Patient Management</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <!-- View Patients Card -->
+    <div class="bg-gradient-to-br from-teal-50 to-teal-100 rounded-xl shadow-lg p-6 text-center transition transform hover:scale-105 hover:shadow-xl fade-in">
+      <div class="flex justify-center mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <a href="/doctor-view-patient" class="block">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Your Patient Record</h3>
+      </a>
+    </div>
+
+    <!-- Discharged Patients Card -->
+    <div class="bg-gradient-to-br from-teal-50 to-teal-100 rounded-xl shadow-lg p-6 text-center transition transform hover:scale-105 hover:shadow-xl fade-in">
+      <div class="flex justify-center mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          <path d="M3 3l18 18"/>
+        </svg>
+      </div>
+      <a href="/doctor-view-discharge-patient" class="block">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Your Discharged Patients</h3>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Fade-in Animation
+  const elements = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  elements.forEach(element => observer.observe(element));
+</script>
+
+<style>
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+{% endblock content %}
